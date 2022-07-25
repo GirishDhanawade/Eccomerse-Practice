@@ -1,0 +1,109 @@
+Today's topics
+Complete customer flow in CMS , with logout
+Enter Spring Data JPA
+Form Binding (2 way data binding) with Form Tag lib
+Enter REST
+Concept n implementation
+
+Revise the flow completed so far.
+Enter  Spring Data JPA n complete the customer flow
+Admin Flow : Data binding technique
+
+Trace Request resp flow
+
+1.Request URL :  http://host:port/day18_boot/
+Resp : index page (delivered by SC)
+
+2. After user clicks on User login Link
+Req : http://host:port/day18_boot/user/login
+
+2.5 Any standard way of generating links / form actions 
+1. To avoid the ambiguity of "/"  
+2. Enable URL rewriting
+Soln : JSTL soln : <c:url> OR <spring:url>
+
+
+3. After clnt clicks of user login link
+Request URL in presence of cookies : http://host:port/day18_boot/user/login , method=GET
+Request URL in absence of cookies : http://host:port/day18_boot/user/login;jsessionid=fdh67867
+Resp : login form sent
+
+
+
+4. After clnt submit login form
+
+Request URL :  http://host:port/day18_boot/user/login , method=POST
+Resp in case of invalid login : forwarding the clnt to login page in the SAME request
+Resp in case of valid customer  login : a new request --- http://host:port/day18_boot/customer/topics
+Resp in case of valid admin login :a new request ---http://host:port/day18_boot/admin/status 
+method =GET
+
+4.5 Problem : After changing to redirect , could you still get user details : NO
+
+Solution  : (refer to : day16_data\day16_help\spring boot\diagrams\scopes)
+Change request scope to session scope.
+(Since In case of successful customer login 
+A new (redirect) request from client --> http://host:port/day18_boot/customer/topics , with method=GET)
+Resp : topics.jsp
+
+5. After customer selects a topic
+http://localhost:8080/day18_boot/customer/tutorials?topicId=4
+resp : tutorials.jsp
+
+6. After customer select a tutorial name
+http://localhost:8080/day18_boot_cms/customer/tutorial_detail?tutName=Spring%20Boot
+resp : tutorial_details.jsp
+
+7. After customer clicks on a "Back" link
+resp : tutorials.jsp
+
+8. After customer clicks on a "Log Out" link
+resp : logout.jsp
+
+
+9. After admin logs in successfully 
+Resp : status.jsp
+Add a form , having topic drop down list
+
+10. URL : http://localhost:8080/day18_boot_cms/admin/add_new_tut?topicId=1
+
+We will trace remaining req-resp in the lab.
+
+
+
+
+--------------------------Pending---------------------------
+
+
+REST concepts
+
+refer to : 
+Diag : web app vs web service
+Diag : Full Stack Development
+Readme : RestController vs MVC Controller n Annotations.txt
+
+
+
+Steps
+1. Create spring boot app : using spring boot starter project (choose packaging as JAR)
+2. Use same spring boot starters as earlier.
+Spring web , Mysql driver , Spring data JPA , Lombok , Spring Dev Tools,validation
+3. NO additional dependencies for view layer(i.e no jstl n no tomcat-embeded jasper  dependencies , in pom.xml
+
+4. Copy application.properties from earlier spring boot project
+(Do not add view resolver related properties)
+
+5. Build the layers in bottoms up manner, for the following objectives.
+
+Objective : Complete backend for Emp management front end
+
+1. Get All Employees : 
+Later Use ResponseEntity , to wrap response body + response headers.
+2. Add Emp Details : 
+3. Delete Emp Details
+4. Get Emp details by id
+5. Update Emp details 
+
+
+Test it with postman & then with React front end.
+
